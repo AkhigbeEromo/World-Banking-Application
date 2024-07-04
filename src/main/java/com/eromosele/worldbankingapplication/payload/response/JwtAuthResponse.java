@@ -13,8 +13,9 @@ public class JwtAuthResponse {
     private Long id;
     private String firstName;
     private String lastName;
+    private String email;
     private String profilePicture;
     private String gender;
-//    private String accessToken;
+    private String accessToken;
     private String tokenType = "Bearer";
 }

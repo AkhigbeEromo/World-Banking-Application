@@ -3,17 +3,23 @@ package com.eromosele.worldbankingapplication.service.impl;
 import com.eromosele.worldbankingapplication.domain.entity.UserEntity;
 import com.eromosele.worldbankingapplication.domain.enums.Role;
 import com.eromosele.worldbankingapplication.payload.request.EmailDetails;
+import com.eromosele.worldbankingapplication.payload.request.LoginRequest;
 import com.eromosele.worldbankingapplication.payload.request.UserRequest;
 import com.eromosele.worldbankingapplication.payload.response.AccountInfo;
+import com.eromosele.worldbankingapplication.payload.response.ApiResponse;
 import com.eromosele.worldbankingapplication.payload.response.BankResponse;
+import com.eromosele.worldbankingapplication.payload.response.JwtAuthResponse;
 import com.eromosele.worldbankingapplication.repository.UserRepository;
 import com.eromosele.worldbankingapplication.service.AuthService;
 import com.eromosele.worldbankingapplication.service.EmailService;
 import com.eromosele.worldbankingapplication.utils.AccountUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -76,5 +82,34 @@ public class AuthServiceImpl implements AuthService {
                                 .build()
                 )
                 .build();
+    }
+
+    @Override
+    public ResponseEntity<ApiResponse<JwtAuthResponse>> loginUser(LoginRequest loginRequest) {
+        Optional<UserEntity>userEntityOptional = userRepository.findByEmail(loginRequest.getEmail());
+        EmailDetails loginAlert = EmailDetails.builder()
+                .subject("You are logged in")
+                .recipient(loginRequest.getEmail())
+                .messageBody("You logged into your account. If you did not initiate this request, contact the support desk ")
+                .build();
+        emailService.sendEmailAlert(loginAlert);
+        UserEntity user = userEntityOptional.get();
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(
+                        new ApiResponse<>(
+                                "Login Successfully",
+                                JwtAuthResponse.builder()
+                                        .accessToken("generate token here")
+                                        .tokenType("Bearer")
+                                        .id(user.getId())
+                                        .email(user.getEmail())
+                                        .gender(user.getGender())
+                                        .firstName(user.getFirstName())
+                                        .lastName(user.getLastName())
+                                        .profilePicture(user.getProfilePicture())
+                                        .build()
+                        )
+                );
     }
 }
