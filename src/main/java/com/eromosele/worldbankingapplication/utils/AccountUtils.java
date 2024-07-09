@@ -7,6 +7,19 @@ public class AccountUtils {
     public static final String ACCOUNT_EXISTS_MESSAGE = "This user already has an account created !";
     public static final String ACCOUNT_CREATION_SUCCESS_CODE = "002";
     public static final String ACCOUNT_CREATION_SUCCESS_MESSAGE = "Account has been created Successfully";
+    public static final String ACCOUNT_NUMBER_NON_EXISTS_CODE = "003";
+    public static final String ACCOUNT_NUMBER_NON_EXISTS_MESSAGE = "Provided account number does not exists";
+    public static final String ACCOUNT_NUMBER_FOUND_CODE = "004";
+    public static final String ACCOUNT_NUMBER_FOUND_MESSAGE= "Account Number Found";
+    public static final String ACCOUNT_CREDITED_SUCCESS_CODE= "005";
+    public static final String ACCOUNT_CREDITED_SUCCESS_MESSAGE= "Account credited successfully";
+    public static final String ACCOUNT_DEBITED_SUCCESS_CODE= "006";
+    public static final String ACCOUNT_DEBITED_SUCCESS_MESSAGE= "Account debited successfully";
+
+
+
+
+
 
     public static String generateAccountNumber(){
         /**
