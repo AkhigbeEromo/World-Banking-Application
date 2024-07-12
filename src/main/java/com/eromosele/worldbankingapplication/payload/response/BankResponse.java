@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @NoArgsConstructor
-public class BankResponse {
+public class BankResponse<T> {
     private String responseCode;
     private String responseMessage;
     private AccountInfo accountInfo;
@@ -20,6 +20,9 @@ public class BankResponse {
         this.responseCode = responseCode;
         this.responseMessage = responseMessage;
         this.accountInfo = accountInfo;
+    }
+    public BankResponse(String message, String fileUrl){
+        this.responseMessage = message;
     }
 
 }

@@ -2,6 +2,7 @@ package com.eromosele.worldbankingapplication.infrastructure.controller;
 
 import com.eromosele.worldbankingapplication.payload.request.CreditAndDebitRequest;
 import com.eromosele.worldbankingapplication.payload.request.EnquiryRequest;
+import com.eromosele.worldbankingapplication.payload.request.TransferRequest;
 import com.eromosele.worldbankingapplication.payload.response.BankResponse;
 import com.eromosele.worldbankingapplication.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +32,9 @@ public class UserController {
     @PostMapping("/debit-account")
     public BankResponse debitAccount(@RequestBody CreditAndDebitRequest request){
         return userService.debitAccount(request);
+    }
+    @PostMapping("/transfer")
+    public BankResponse transfer(@RequestBody TransferRequest request){
+        return userService.transfer(request);
     }
 }
